@@ -20,6 +20,7 @@
 
 # RStudio files
 .Rproj.user/
+*.Rproj
 
 # produced vignettes
 vignettes/*.html
@@ -47,3 +48,11 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# ignore contents of SpaDES data directories (but keep the directories)
+cache/**
+input/**
+output/**
+modules/**
+
+!**/.gitkeep
