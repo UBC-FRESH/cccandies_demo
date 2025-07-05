@@ -51,8 +51,8 @@ rsconnect/
 
 # ignore contents of SpaDES data directories (but keep the directories)
 cache/**
-input/**
+#input/**
 output/**
-modules/**
+#modules/**
 
 !**/.gitkeep
