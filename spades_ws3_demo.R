@@ -40,7 +40,7 @@ outputs <-data.frame(objectName = "landscape") # do not modify
 #scheduler.mode <- "areacontrol" # self-tuning oldest-first priority queue heuristic algorithm (should "just work")
 scheduler.mode <- "optimize" # this should also "just work" (needs more testing)
 target.masks <- list(c('? ? ? ?')) # do not modify
-target.scalefactors <- py_dict(basenames, list(0.8))
+target.scalefactors <- py_dict(basenames, list(0.8)) # this now works for both areacontrol and optimize modes
 ################################################################################
 
 ################################################################################
