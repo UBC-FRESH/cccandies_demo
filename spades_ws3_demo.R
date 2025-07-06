@@ -25,12 +25,14 @@ basenames <- list(c("tsa41")) # only run one TSA as a test (faster and simpler)
 horizon <- 3 # this would typically be one or two rotations (10 or 20 periods)
 period_length <- 10 # do not modify this unless you know what you are doing
 times <- list(start = 0, end = horizon - 1) # do not modify
+tif.path <- "tif" # do not modify (works with included dataset)
 tifPath <- "tif" # do not modify (works with included dataset)
+shp.path <- "gis/shp"
 outputs <-data.frame(objectName = "landscape") # do not modify
-scheduler.mode <- "areacontrol" # self-tuning oldest-first priority queue heuristic algorithm (should "just work")
-# scheduler.mode <- "optimize" # this should also "just work" (needs more testing)
+#scheduler.mode <- "areacontrol" # self-tuning oldest-first priority queue heuristic algorithm (should "just work")
+scheduler.mode <- "optimize" # this should also "just work" (needs more testing)
 target.masks <- list(c('? ? ? ?')) # do not modify
-target.scalefactors <- NULL
+target.scalefactors <- py_dict(basenames, list(0.8))
 ################################################################################
 
 ################################################################################

@@ -56,3 +56,6 @@ output/**
 #modules/**
 
 !**/.gitkeep
+
+.vscode/
+.venv/
