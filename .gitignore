@@ -40,7 +40,7 @@ cache/**
 output/**
 #modules/**
 !**/.gitkeep
-.vscode/
+#.vscode/
 .venv/
 .secrets
 .Renviron

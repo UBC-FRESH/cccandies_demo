@@ -46,6 +46,7 @@ base.year <- 2020
 # basenames <- c("tsa08", "tsa16", "tsa24", "tsa40", "tsa41") # data included!
 basenames <- list(c("tsa41")) # only run one TSA as a test (faster and simpler)
 horizon <- 3 # this would typically be one or two rotations (10 or 20 periods)
+enable.debugpy <- FALSE
 period_length <- 10 # do not modify this unless you know what you are doing
 times <- list(start = 0, end = horizon - 1) # do not modify
 tif.path <- "tif" # do not modify (works with included dataset)
@@ -69,6 +70,7 @@ params <- list(spades_ws3_dataInit = list(basenames = basenames,
                                           .savePath = file.path(paths$outputPath, "landscape")),
                spades_ws3 = list(basenames = basenames,
                                  horizon = 3,
+                                 enable.debugpy = enable.debugpy,
                                  period_length = period_length,
                                  tif.path = tif.path,
                                  shp.path = shp.path,
