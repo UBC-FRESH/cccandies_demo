@@ -4,6 +4,21 @@ library(reticulate)
 library(SpaDES)
 
 ################################################################################
+# set up google drive authentication
+library(googledrive)
+my_client <- gargle::gargle_oauth_client(
+  id = Sys.getenv("GARGLE_CLIENT_ID"),
+  secret = Sys.getenv("GARGLE_CLIENT_SECRET"),
+  name = "codeserver"
+)
+googledrive::drive_auth_configure(client = my_client)
+googledrive::drive_auth(
+  cache = ".secrets",
+  use_oob = TRUE
+)
+################################################################################
+
+################################################################################
 # set up SpaDES paths
 setPaths(modulePath = 'modules',
          inputPath = 'input',
@@ -29,10 +44,10 @@ tif.path <- "tif" # do not modify (works with included dataset)
 tifPath <- "tif" # do not modify (works with included dataset)
 shp.path <- "gis/shp"
 outputs <-data.frame(objectName = "landscape") # do not modify
-#scheduler.mode <- "areacontrol" # self-tuning oldest-first priority queue heuristic algorithm (should "just work")
-scheduler.mode <- "optimize" # this should also "just work" (needs more testing)
+scheduler.mode <- "areacontrol" # self-tuning oldest-first priority queue heuristic algorithm (should "just work")
+#scheduler.mode <- "optimize" # this should also "just work" (needs more testing)
 target.masks <- list(c('? ? ? ?')) # do not modify
-target.scalefactors <- py_dict(basenames, list(0.8)) # this now works for both areacontrol and optimize modes
+target.scalefactors <- py_dict(basenames, list(0.8)) # default to 1.0 if this is set to NULL 
 ################################################################################
 
 ################################################################################
@@ -53,7 +68,7 @@ params <- list(spades_ws3_dataInit = list(basenames = basenames,
                                  scheduler.mode = scheduler.mode,
                                  target.masks = target.masks,
                                  target.scalefactors = target.scalefactors),
-               bogus_fire = list(p.to.zero = 0.99))
+               bogus_fire = list(p.to.zero = 0.01))
 sim <- simInit(paths=paths, modules=modules, times=times, params=params, outputs=outputs)
 ################################################################################
 

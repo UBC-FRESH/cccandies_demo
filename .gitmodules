@@ -1,6 +1,6 @@
 [submodule "input"]
 	path = input
-	url = https://github.com/UBC-FRESH/cccandies-demo-input
+	url = https://github.com/UBC-FRESH/cccandies_demo_input.git
 [submodule "modules/spades_ws3"]
 	path = modules/spades_ws3
 	url = https://github.com/UBC-FRESH/spades_ws3.git
