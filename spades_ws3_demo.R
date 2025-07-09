@@ -1,6 +1,14 @@
 # minimal demo of a working SpaDES model with harvesting (using ws3)
 
 library(reticulate)
+needed <- c("numba>=0.58", "ws3", "datalad[full]", "geopandas", "seaborn", "folium")
+if (reticulate::virtualenv_exists("r-reticulate")) {
+  reticulate::py_install(needed)
+} else {
+  reticulate::virtualenv_create("r-reticulate", packages = needed)
+}
+reticulate::use_virtualenv("r-reticulate")
+
 library(SpaDES)
 
 ################################################################################
