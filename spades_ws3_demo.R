@@ -42,43 +42,43 @@ modules <- list('spades_ws3_dataInit', 'bogus_fire', 'spades_ws3')
 
 ################################################################################
 # define local variables (spades_ws3 module parameters)
-base.year <- 2020   
+base.year <- 2020
 # basenames <- c("tsa08", "tsa16", "tsa24", "tsa40", "tsa41") # data included!
 basenames <- list(c("tsa41")) # only run one TSA as a test (faster and simpler)
-horizon <- 3 # this would typically be one or two rotations (10 or 20 periods)
+#basenames <- list(c("tsa41mini")) # only run one TSA as a test (faster and simpler)
+horizon <- 20 # this would typically be one or two rotations (10 or 20 periods)
 enable.debugpy <- FALSE
 period_length <- 10 # do not modify this unless you know what you are doing
-times <- list(start = 0, end = horizon - 1) # do not modify
+times <- list(start = 0, end = 10) # SpaDES time steps
 tif.path <- "tif" # do not modify (works with included dataset)
-tifPath <- "tif" # do not modify (works with included dataset)
+#tifPath <- "tif" # do not modify (works with included dataset)
 shp.path <- "gis/shp"
 outputs <-data.frame(objectName = "landscape") # do not modify
-scheduler.mode <- "areacontrol" # self-tuning oldest-first priority queue heuristic algorithm (should "just work")
-#scheduler.mode <- "optimize" # this should also "just work" (needs more testing)
-target.masks <- list(c('? ? ? ?')) # do not modify
+#scheduler.mode <- "areacontrol" # self-tuning oldest-first priority queue heuristic algorithm (should "just work")
+scheduler.mode <- "optimize" # this should also "just work" (needs more testing)
+#target.masks <- list(c('? ? ? ?')) # do not modify
 target.scalefactors <- py_dict(basenames, list(0.8)) # default to 1.0 if this is set to NULL 
 ################################################################################
 
 ################################################################################
 # define SpaDES params input arg data structure
 params <- list(spades_ws3_dataInit = list(basenames = basenames,
-                                          tifPath = tifPath,
+                                          tif.path = tif.path,
                                           base.year = base.year,
                                           .saveInitialTime = 0,
                                           .saveInterval = 1,
                                           .saveObjects = c("landscape"),
                                           .savePath = file.path(paths$outputPath, "landscape")),
                spades_ws3 = list(basenames = basenames,
-                                 horizon = 3,
+                                 horizon = horizon,
                                  enable.debugpy = enable.debugpy,
                                  period_length = period_length,
                                  tif.path = tif.path,
                                  shp.path = shp.path,
                                  base.year = base.year,
                                  scheduler.mode = scheduler.mode,
-                                 target.masks = target.masks,
                                  target.scalefactors = target.scalefactors),
-               bogus_fire = list(p.to.zero = 0.01))
+               bogus_fire = list(p.to.zero = 0.00))
 sim <- simInit(paths=paths, modules=modules, times=times, params=params, outputs=outputs)
 ################################################################################
 
@@ -100,7 +100,7 @@ freq(sim$landscape$age) # this is not a great example (do better)
 
 ################################################################################
 # compile some aggregated data tables from raw geotiff spades_ws3 model output
-#years <- 2020:2099
+years <- 2020:2119
 #burned.area.tsa08 <- sapply(years, function(x){return(cellStats(raster(paste0('input/tif/tsa08/projected_fire_', x, '.tif')), sum) * 6.25)})
 #burned.area.tsa16 <- sapply(years, function(x){return(cellStats(raster(paste0('input/tif/tsa16/projected_fire_', x, '.tif')), sum) * 6.25)})
 #burned.area.tsa24 <- sapply(years, function(x){return(cellStats(raster(paste0('input/tif/tsa24/projected_fire_', x, '.tif')), sum) * 6.25)})
@@ -110,6 +110,5 @@ freq(sim$landscape$age) # this is not a great example (do better)
 #harvested.area.tsa16 <- sapply(years, function(x){return(cellStats(raster(paste0('input/tif/tsa16/projected_harvest_', x, '.tif')), sum) * 6.25)})
 #harvested.area.tsa24 <- sapply(years, function(x){return(cellStats(raster(paste0('input/tif/tsa24/projected_harvest_', x, '.tif')), sum) * 6.25)})
 #harvested.area.tsa40 <- sapply(years, function(x){return(cellStats(raster(paste0('input/tif/tsa40/projected_harvest_', x, '.tif')), sum) * 6.25)})
-#harvested.area.tsa41 <- sapply(years, function(x){return(cellStats(raster(paste0('input/tif/tsa41/projected_harvest_', x, '.tif')), sum) * 6.25)})
+harvested.area.tsa41 <- sapply(years, function(x){return(cellStats(raster(paste0('input/tif/tsa41/projected_harvest_', x, '.tif')), sum) * 6.25)})
 ################################################################################
-

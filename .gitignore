@@ -44,3 +44,5 @@ output/**
 .venv/
 .secrets
 .Renviron
+scratch.py
+modules/ws3
