@@ -44,19 +44,23 @@ modules <- list('spades_ws3_dataInit', 'bogus_fire', 'spades_ws3')
 # define local variables (spades_ws3 module parameters)
 base.year <- 2020
 
-#basenames <- c("tsa08", "tsa16", "tsa24", "tsa40", "tsa41") # data included!
-#target.scalefactors <- py_dict(basenames, list(0.8, 0.8, 0.8, 0.8, 0.8)) # default to 1.0 if this is set to NULL 
+# basenames <- c("tsa08", "tsa16", "tsa24", "tsa40", "tsa41") # data included!
+# target.scalefactors <- py_dict(basenames, list(0.8, 0.8, 0.8, 0.8, 0.8)) # default to 1.0 if this is set to NULL 
 
-#basenames <- c("tsa40", "tsa41") # data included!
-#target.scalefactors <- py_dict(basenames, list(0.8, 0.8)) # default to 1.0 if this is set to NULL 
+basenames <- c("tsa40", "tsa41") # data included!
+target.scalefactors <- py_dict(basenames, list(0.8, 0.8)) # default to 1.0 if this is set to NULL 
 
-basenames <- list(c("tsa40")) # only run one TSA as a test (faster and simpler)
-target.scalefactors <- py_dict(basenames, list(0.8)) # default to 1.0 if this is set to NULL 
+# basenames <- list(c("tsa24")) # only run one TSA as a test (faster and simpler)
+# target.scalefactors <- py_dict(basenames, list(0.8)) # default to 1.0 if this is set to NULL 
 
-#basenames <- list(c("tsa41")) # only run one TSA as a test (faster and simpler)
-#target.scalefactors <- py_dict(basenames, list(0.8)) # default to 1.0 if this is set to NULL 
+# basenames <- list(c("tsa40")) # only run one TSA as a test (faster and simpler)
+# target.scalefactors <- py_dict(basenames, list(0.8)) # default to 1.0 if this is set to NULL 
 
-workers <- 1L
+# basenames <- list(c("tsa41")) # only run one TSA as a test (faster and simpler)
+# target.scalefactors <- py_dict(basenames, list(0.8)) # default to 1.0 if this is set to NULL 
+
+mgmt.unit.theme = 0
+workers <- 8L
 horizon <- 20 # this would typically be one or two rotations (10 or 20 periods)
 enable.debugpy <- FALSE
 #enable.debugpy <- TRUE
@@ -89,6 +93,7 @@ params <- list(spades_ws3_dataInit = list(basenames = basenames,
                                  base.year = base.year,
                                  scheduler.mode = scheduler.mode,
                                  target.scalefactors = target.scalefactors,
+                                 mgmt.unit.theme = mgmt.unit.theme,
                                  workers = workers),
                bogus_fire = list(p.to.zero = 0.00))
 sim <- simInit(paths=paths, modules=modules, times=times, params=params, outputs=outputs)
